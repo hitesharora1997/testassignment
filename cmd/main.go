@@ -1,13 +1,11 @@
 package main
 
 import (
-	"fmt"
-
-	server "github.com/hitesharora1997/testassignment/internal"
+	"github.com/hitesharora1997/testassignment/internal/server"
 )
 
 func main() {
 	dataFile := "server_data.json"
 	srv := server.NewServer(dataFile)
-	fmt.Println(srv)
+	srv.RestoreData()
 }
