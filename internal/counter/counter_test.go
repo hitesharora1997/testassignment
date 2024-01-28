@@ -18,13 +18,11 @@ func TestNewRequestCounter(t *testing.T) {
 func TestRecordAndCount(t *testing.T) {
 	rc := NewRequestCounter()
 
-	// Record a single request
 	count := rc.RecordAndCount()
 	if count != 1 {
 		t.Errorf("Expected count to be 1, got %d", count)
 	}
 
-	// Record multiple requests
 	for i := 0; i < 5; i++ {
 		rc.RecordAndCount()
 	}

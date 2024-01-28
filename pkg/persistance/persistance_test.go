@@ -10,7 +10,6 @@ import (
 )
 
 func TestPersistence_SaveAndRestore(t *testing.T) {
-	// Create a temporary file
 	tmpFile, err := ioutil.TempFile("", "test")
 	if err != nil {
 		t.Fatal(err)
@@ -19,14 +18,12 @@ func TestPersistence_SaveAndRestore(t *testing.T) {
 
 	c := counter.NewRequestCounter()
 
-	// Edge Case 1: Save and restore with no data
 	SaveData(tmpFile.Name(), c)
 	newCounter := counter.NewRequestCounter()
 	if err = Restore(tmpFile.Name(), newCounter); err != nil {
 		t.Errorf("Restore failed with no data: %v", err)
 	}
 
-	// Edge Case 2: Save and restore with some data
 	c.RecordAndCount()
 	SaveData(tmpFile.Name(), c)
 	newCounter = counter.NewRequestCounter()
@@ -35,6 +32,4 @@ func TestPersistence_SaveAndRestore(t *testing.T) {
 		t.Errorf("Expected 1 request, got %d", len(newCounter.RequestTimes))
 	}
 
-	// Edge Case 3: Handling file read/write errors (e.g., permission issues, corrupted data)
-	// This can be simulated by using an invalid file path or modifying file permissions.
 }
