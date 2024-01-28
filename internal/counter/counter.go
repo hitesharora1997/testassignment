@@ -1,6 +1,10 @@
 package counter
 
-import "sync"
+import (
+	"fmt"
+	"sync"
+	"time"
+)
 
 type RequestCounter struct {
 	sync.Mutex
@@ -9,4 +13,14 @@ type RequestCounter struct {
 
 func NewRequestCounter() *RequestCounter {
 	return &RequestCounter{}
+}
+
+func (request *RequestCounter) RecordCounter() error {
+	request.Lock()
+	defer request.Unlock()
+
+	now := time.Now().Unix()
+	fmt.Println("time", now)
+
+	return nil
 }
