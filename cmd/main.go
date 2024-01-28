@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -9,6 +10,7 @@ import (
 
 func main() {
 	dataFile := "server_data.json"
+	fmt.Println("Starting the server")
 	srv := server.NewServer(dataFile)
 	srv.RestoreData()
 	go srv.PersistData()

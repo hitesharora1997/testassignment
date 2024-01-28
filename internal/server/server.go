@@ -2,6 +2,8 @@ package server
 
 import (
 	"log"
+	"net/http"
+	"strconv"
 	"sync"
 
 	"github.com/hitesharora1997/testassignment/internal/counter"
@@ -29,4 +31,10 @@ func (s *Server) RestoreData() {
 
 func (s *Server) PersistData() {
 	persistance.PeriodicSave(s.dataFile, s.counter, 5)
+}
+
+func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	count := s.counter.RecordAndCount()
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("Total request in the last 60 seconds: " + strconv.Itoa(count)))
 }

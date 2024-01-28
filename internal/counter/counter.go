@@ -20,7 +20,6 @@ func (request *RequestCounter) RecordAndCount() int {
 	defer request.Unlock()
 
 	now := time.Now().Unix()
-	fmt.Println("time", now)
 
 	request.RequestTimes = append(request.RequestTimes, now)
 
