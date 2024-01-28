@@ -8,19 +8,33 @@ import (
 
 type RequestCounter struct {
 	sync.Mutex
-	l []int64
+	RequestTimes []int64
 }
 
 func NewRequestCounter() *RequestCounter {
 	return &RequestCounter{}
 }
 
-func (request *RequestCounter) RecordCounter() error {
+func (request *RequestCounter) RecordAndCount() int {
 	request.Lock()
 	defer request.Unlock()
 
 	now := time.Now().Unix()
 	fmt.Println("time", now)
 
-	return nil
+	request.RequestTimes = append(request.RequestTimes, now)
+
+	cutoff := now - 60
+	index := 0
+
+	for i, t := range request.RequestTimes {
+		fmt.Println("t", t)
+		if t > cutoff {
+			index = i
+			break
+		}
+	}
+	request.RequestTimes = request.RequestTimes[index:]
+
+	return len(request.RequestTimes)
 }
