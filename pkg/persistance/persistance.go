@@ -18,7 +18,7 @@ func Restore(dataFile string, counter *counter.RequestCounter) error {
 	counter.Lock()
 	defer counter.Unlock()
 
-	return json.Unmarshal(data, counter.RecordAndCount())
+	return json.Unmarshal(data, &counter.RequestTimes)
 }
 
 func PeriodicSave(dataFile string, counter *counter.RequestCounter, intervalSeconds int) {

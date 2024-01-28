@@ -1,7 +1,6 @@
 package counter
 
 import (
-	"fmt"
 	"sync"
 	"time"
 )
@@ -27,7 +26,6 @@ func (request *RequestCounter) RecordAndCount() int {
 	index := 0
 
 	for i, t := range request.RequestTimes {
-		fmt.Println("t", t)
 		if t > cutoff {
 			index = i
 			break
